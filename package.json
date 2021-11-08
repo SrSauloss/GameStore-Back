@@ -16,11 +16,16 @@
     "@babel/preset-env": "^7.16.0",
     "babel-jest": "^27.3.1",
     "cors": "^2.8.5",
+    "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jest": "^27.3.1",
+    "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
     "supertest": "^6.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
   }
 }
