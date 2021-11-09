@@ -24,4 +24,13 @@ async function storeCategorie(req, res) {
   }
 }
 
-export { storeCategorie };
+async function listAllCategories(req, res) {
+  try {
+    const { rows } = await connection.query(`SELECT * FROM categories`);
+    res.send(rows);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+}
+
+export { storeCategorie, listAllCategories };
