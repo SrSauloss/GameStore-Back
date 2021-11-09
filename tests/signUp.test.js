@@ -1,7 +1,7 @@
-import "../setup.js";
-import app from "../app.js";
+import "../src/setup.js";
+import app from "../src/app.js";
 import supertest from "supertest";
-import connection from "../database.js";
+import connection from "../src/database.js";
 
 describe("POST /sign-up", () => {
   afterAll(async () => {
