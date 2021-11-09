@@ -1,5 +1,6 @@
 import connection from "../database";
 import bcrypt from "bcrypt";
+import { signUpSchema } from "../schemas/signUpSchema";
 
 const signUp = async (req, res) => {
   const { email, name, cpf, phone, password } = req.body;
