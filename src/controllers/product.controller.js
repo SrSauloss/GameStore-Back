@@ -5,7 +5,7 @@ import {
 } from "../validates/product.validate.js";
 
 async function storeProduct(req, res) {
-  const { name, price, description, stock, image } = req.body;
+  const { name, price, description, stock, image, category } = req.body;
 
   const validate = productStoreSchema.validate({
     name,
@@ -13,6 +13,7 @@ async function storeProduct(req, res) {
     description,
     stock,
     image,
+    category,
   });
 
   if (validate.error) {
@@ -20,9 +21,27 @@ async function storeProduct(req, res) {
   }
 
   try {
+    const resul_category = await connection.query(
+      `SELECT id FROM categories WHERE name = $1`,
+      [category]
+    );
+
+    if (resul_category.rowCount === 0) {
+      return res.sendStatus(404);
+    }
+
     const resul = await connection.query(
       `INSERT INTO games (name, price, description, stock, image) VALUES($1, $2, $3 ,$4 ,$5)`,
       [name, price, description, stock, image]
+    );
+
+    const resul_game = await connection.query(`SELECT MAX(id) FROM games`);
+    const id_game = resul_game.rows[0].max;
+    const id_category = resul_category?.rows[0].id;
+
+    await connection.query(
+      `INSERT INTO games_categories (game_id, category_id) VALUES($1, $2)`,
+      [id_game, id_category]
     );
 
     return res.sendStatus(201);
