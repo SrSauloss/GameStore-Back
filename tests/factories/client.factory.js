@@ -21,9 +21,12 @@ const createClient = async () => {
         INSERT INTO clients 
         (email, name, cpf, phone, password) 
         VALUES ($1, $2, $3, $4, $5)
+        RETURNING id
         `,
     [user.email, user.name, user.cpf, user.phone, passwordHash]
   );
+
+  user.id = insertedUser.rows[0].id;
 
   return user;
 };
