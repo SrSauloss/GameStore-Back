@@ -2,7 +2,6 @@ import "../src/setup.js";
 import supertest from "supertest";
 import app from "../src/app.js";
 import { createProduct, createToken } from "./factories/product.factory.js";
-import connection from "../src/database.js";
 
 describe("POST /product/new", () => {
   it("return 401 for user not authorized", async () => {

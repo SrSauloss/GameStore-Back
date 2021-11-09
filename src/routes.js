@@ -12,7 +12,7 @@ import {
 
 const routes = express.Router();
 
-routes.post("/product/categorie/new", auth, storeCategorie);
+routes.post("/product/category/new", auth, storeCategorie);
 routes.get("/product/categories", auth, listAllCategories);
 
 routes.post("/product/new", auth, storeProduct);
