@@ -1,13 +1,17 @@
 import Joi from "joi";
 
-const productSchema = Joi.object({
+const productStoreSchema = Joi.object({
   name: Joi.string().required(),
   price: Joi.number().required(),
   description: Joi.string().required(),
   stock: Joi.number().integer().required(),
   image: Joi.string()
-    .pattern(new RegExp(/(https?:\/\/.*\.(?:png|jpg))/i))
+    .pattern(new RegExp(/\.(jpeg|jpg|gif|png)$/))
     .required(),
 });
 
-export default productSchema;
+const productUpdateStockSchema = Joi.object({
+  amount: Joi.number().integer().required(),
+});
+
+export { productStoreSchema, productUpdateStockSchema };
