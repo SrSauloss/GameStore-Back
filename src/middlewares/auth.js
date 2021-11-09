@@ -9,7 +9,7 @@ async function auth(req, res, next) {
   jwt.verify(token, secretKey, function (err, decoded) {
     if (err) return res.status(500).send("Failed to authenticate token");
 
-    req.userId = decoded.id;
+    req.userId = decoded.userId;
     next();
   });
 }
