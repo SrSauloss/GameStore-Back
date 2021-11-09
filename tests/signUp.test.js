@@ -2,7 +2,7 @@ import "../src/setup.js";
 import app from "../src/app.js";
 import supertest from "supertest";
 import connection from "../src/database.js";
-import { generateSignUpBody } from "./factories/client.factory.js";
+import { generateClientBody } from "./factories/client.factory.js";
 
 describe("POST /sign-up", () => {
   afterAll(async () => {
@@ -20,7 +20,7 @@ describe("POST /sign-up", () => {
   });
 
   it("returns 201 when account is created sucessufully", async () => {
-    const body = generateSignUpBody({ email: "test@email.com" });
+    const body = generateClientBody({ email: "test@email.com" });
 
     const result = await supertest(app).post("/sign-up").send(body);
     const status = result.status;
@@ -28,7 +28,7 @@ describe("POST /sign-up", () => {
   });
 
   it("returns 409 when email is already in use", async () => {
-    const body = generateSignUpBody({ email: "test@email.com" });
+    const body = generateClientBody({ email: "test@email.com" });
 
     const result = await supertest(app).post("/sign-up").send(body);
     const status = result.status;

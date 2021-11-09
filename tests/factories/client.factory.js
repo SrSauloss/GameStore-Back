@@ -1,7 +1,8 @@
 import faker from "faker-br";
 import bcrypt from "bcrypt";
+import connection from "../../src/database";
 
-const generateSignUpBody = (user) => {
+const generateClientBody = (user) => {
   return {
     email: user?.email || faker.internet.email(),
     name: user?.name || faker.name.findName(),
@@ -11,8 +12,8 @@ const generateSignUpBody = (user) => {
   };
 };
 
-const createClient = () => {
-  const user = generateSignUpBody();
+const createClient = async () => {
+  const user = generateClientBody();
   const passwordHash = bcrypt.hashSync(user.password, 10);
 
   const insertedUser = await connection.query(
@@ -24,9 +25,7 @@ const createClient = () => {
     [user.email, user.name, user.cpf, user.phone, passwordHash]
   );
 
-  user.id = insertedUser.rows[0].id;
-
   return user;
 };
 
-export { generateSignUpBody, createClient };
+export { generateClientBody, createClient };
