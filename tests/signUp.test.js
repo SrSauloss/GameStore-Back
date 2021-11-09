@@ -2,6 +2,7 @@ import "../src/setup.js";
 import app from "../src/app.js";
 import supertest from "supertest";
 import connection from "../src/database.js";
+import { generateSignUpBody } from "./factories/client.factory.js";
 
 describe("POST /sign-up", () => {
   afterAll(async () => {
@@ -9,16 +10,6 @@ describe("POST /sign-up", () => {
         DELETE FROM clients 
         `);
   });
-
-  function generateSignUpBody(user) {
-    return {
-      email: user?.email || "test@email.com",
-      name: user?.name || "Test",
-      cpf: user?.cpf || "11111111111",
-      phone: user?.phone || "11111111",
-      password: user?.password || "12a!3456",
-    };
-  }
 
   it("returns 403 for invalid body", async () => {
     const body = {};
@@ -29,7 +20,7 @@ describe("POST /sign-up", () => {
   });
 
   it("returns 201 when account is created sucessufully", async () => {
-    const body = generateSignUpBody();
+    const body = generateSignUpBody({ email: "test@email.com" });
 
     const result = await supertest(app).post("/sign-up").send(body);
     const status = result.status;
@@ -37,7 +28,7 @@ describe("POST /sign-up", () => {
   });
 
   it("returns 409 when email is already in use", async () => {
-    const body = generateSignUpBody();
+    const body = generateSignUpBody({ email: "test@email.com" });
 
     const result = await supertest(app).post("/sign-up").send(body);
     const status = result.status;
