@@ -1,4 +1,5 @@
 import faker from "faker-br";
+import bcrypt from "bcrypt";
 
 const generateSignUpBody = (user) => {
   return {
@@ -10,4 +11,22 @@ const generateSignUpBody = (user) => {
   };
 };
 
-export { generateSignUpBody };
+const createClient = () => {
+  const user = generateSignUpBody();
+  const passwordHash = bcrypt.hashSync(user.password, 10);
+
+  const insertedUser = await connection.query(
+    `
+        INSERT INTO clients 
+        (email, name, cpf, phone, password) 
+        VALUES ($1, $2, $3, $4, $5)
+        `,
+    [user.email, user.name, user.cpf, user.phone, passwordHash]
+  );
+
+  user.id = insertedUser.rows[0].id;
+
+  return user;
+};
+
+export { generateSignUpBody, createClient };
