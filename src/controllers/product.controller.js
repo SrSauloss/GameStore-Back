@@ -53,7 +53,7 @@ async function storeProduct(req, res) {
 async function listAllProducts(req, res) {
   try {
     const { rows } = await connection.query(`SELECT * FROM games`);
-    res.status(200).send(rows);
+    res.status(200).send({ data: rows });
   } catch (err) {
     res.sendStatus(500);
   }
@@ -65,7 +65,7 @@ async function updateStockProduct(req, res) {
 
   const validate = productUpdateStockSchema.validate({ amount });
   if (validate.error) {
-    res.status(400).send(validate.error);
+    return res.sendStatus(400);
   }
 
   try {
