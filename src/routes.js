@@ -15,7 +15,6 @@ import { signIn } from "./controllers/signIn.controller.js";
 const routes = express.Router();
 
 routes.post("/sign-up", signUp);
-
 routes.post("/sign-in", signIn);
 
 routes.post("/product/category/new", auth, storeCategorie);
