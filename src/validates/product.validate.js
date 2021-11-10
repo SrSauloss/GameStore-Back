@@ -8,6 +8,7 @@ const productStoreSchema = Joi.object({
   image: Joi.string()
     .pattern(new RegExp(/\.(jpeg|jpg|gif|png)$/))
     .required(),
+  category: Joi.string().required(),
 });
 
 const productUpdateStockSchema = Joi.object({

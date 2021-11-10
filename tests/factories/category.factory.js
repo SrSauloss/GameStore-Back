@@ -1,5 +1,6 @@
 import faker from "faker";
 import jwt from "jsonwebtoken";
+import connection from "../../src/database.js";
 
 function createCategoy() {
   const name = faker.lorem.word();
@@ -13,4 +14,14 @@ function createToken() {
   return token;
 }
 
-export { createCategoy, createToken };
+async function insertCategory() {
+  const category = faker.random.word();
+
+  const resul_category = await connection.query(
+    `INSERT INTO categories (name) VALUES($1)`,
+    [category]
+  );
+
+  return category;
+}
+export { createCategoy, createToken, insertCategory };
