@@ -15,7 +15,7 @@ const signIn = async (req, res) => {
       `
             SELECT * FROM clients
             WHERE email = $1 
-        `,
+        ;`,
       [email]
     );
 

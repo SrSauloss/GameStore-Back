@@ -81,4 +81,30 @@ async function updateStockProduct(req, res) {
   }
 }
 
-export { storeProduct, listAllProducts, updateStockProduct };
+async function listProduct(req, res) {
+  const { id } = req.params;
+
+  try {
+    const resul = await connection.query(
+      `
+      SELECT
+      games.*,
+      categories.name AS "categoryName"
+      FROM games
+      JOIN games_categories
+        ON games_categories.game_id = games.id
+      JOIN categories
+        ON categories.id = games_categories.category_id
+      WHERE games.id = $1
+      ;`,
+      [id]
+    );
+
+    if (resul.rowCount === 0) return res.sendStatus(404);
+    res.status(200).send({ data: resul.rows[0] });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+}
+
+export { storeProduct, listAllProducts, updateStockProduct, listProduct };

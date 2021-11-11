@@ -4,11 +4,12 @@ import {
   updateStockProduct,
   listAllProducts,
   storeProduct,
+  listProduct,
 } from "./controllers/product.controller.js";
 import {
   listAllCategories,
   storeCategorie,
-} from "./controllers/categorie.controller.js";
+} from "./controllers/category.controller.js";
 import { signUp } from "./controllers/signUp.controller.js";
 import { signIn } from "./controllers/signIn.controller.js";
 
@@ -23,5 +24,6 @@ routes.get("/product/categories", auth, listAllCategories);
 routes.post("/product/new", auth, storeProduct);
 routes.get("/product/all", listAllProducts);
 routes.put("/product/:id", auth, updateStockProduct);
+routes.get("/product/:id", auth, listProduct);
 
 export default routes;
