@@ -4,6 +4,7 @@ import {
   updateStockProduct,
   listAllProducts,
   storeProduct,
+  listProduct,
 } from "./controllers/product.controller.js";
 import {
   listAllCategories,
@@ -23,5 +24,6 @@ routes.get("/product/categories", auth, listAllCategories);
 routes.post("/product/new", auth, storeProduct);
 routes.get("/product/all", listAllProducts);
 routes.put("/product/:id", auth, updateStockProduct);
+routes.get("/product/:id", auth, listProduct);
 
 export default routes;
