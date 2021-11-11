@@ -116,3 +116,33 @@ describe("PUT /product/:id", () => {
     expect(resul.status).toEqual(200);
   });
 });
+
+describe("GET /product/:id", () => {
+  it("return 401 for user not authorized", async () => {
+    const data = await createDataUpdate();
+
+    const resul = await supertest(app).get(`/product/${data.id}`);
+    expect(resul.status).toEqual(401);
+  });
+
+  it("return 404 for game not found", async () => {
+    const data = await createDataUpdate();
+    data.id += 1;
+    const token = createToken();
+
+    const resul = await supertest(app)
+      .get(`/product/${data.id}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(resul.status).toEqual(404);
+  });
+
+  it("return 200 for sucess", async () => {
+    const data = await createDataUpdate();
+    const token = createToken();
+
+    const resul = await supertest(app)
+      .get(`/product/${data.id}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(resul.status).toEqual(200);
+  });
+});

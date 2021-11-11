@@ -9,7 +9,7 @@ import {
 import {
   listAllCategories,
   storeCategorie,
-} from "./controllers/categorie.controller.js";
+} from "./controllers/category.controller.js";
 import { signUp } from "./controllers/signUp.controller.js";
 import { signIn } from "./controllers/signIn.controller.js";
 

@@ -16,7 +16,7 @@ const signUp = async (req, res) => {
       `
         SELECT * FROM clients
         WHERE email = $1
-        `,
+        ;`,
       [email]
     );
     if (emailCheck.rowCount !== 0) {
@@ -27,7 +27,7 @@ const signUp = async (req, res) => {
       `
         SELECT * FROM clients
         WHERE cpf = $1
-        `,
+        ;`,
       [cpf]
     );
     if (cpfCheck.rowCount !== 0) {
@@ -39,7 +39,7 @@ const signUp = async (req, res) => {
         INSERT INTO clients 
         (email, name, cpf, phone, password) 
         VALUES ($1, $2, $3, $4, $5)
-        `,
+        ;`,
       [email, name, cpf, phone, passwordHash]
     );
 

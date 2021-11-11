@@ -22,7 +22,7 @@ const createClient = async () => {
         (email, name, cpf, phone, password) 
         VALUES ($1, $2, $3, $4, $5)
         RETURNING id
-        `,
+        ;`,
     [user.email, user.name, user.cpf, user.phone, passwordHash]
   );
 

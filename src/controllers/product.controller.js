@@ -84,10 +84,8 @@ async function updateStockProduct(req, res) {
 async function listProduct(req, res) {
   const { id } = req.params;
 
-  if (!id) return res.sendStatus(400);
-
   try {
-    const { rows } = await connection.query(
+    const resul = await connection.query(
       `
       SELECT
       games.*,
@@ -102,8 +100,8 @@ async function listProduct(req, res) {
       [id]
     );
 
-    if (rowCount === 0) return res.sendStatus(404);
-    res.status(200).send({ data: rows });
+    if (resul.rowCount === 0) return res.sendStatus(404);
+    res.status(200).send({ data: resul.rows[0] });
   } catch (err) {
     res.sendStatus(500);
   }
