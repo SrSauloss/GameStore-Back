@@ -1,6 +1,7 @@
 import faker from "faker";
 import connection from "../../src/database.js";
 import "../../src/setup.js";
+import { insertCategory } from "./category.factory.js";
 
 function createProduct(category) {
   const product = {
