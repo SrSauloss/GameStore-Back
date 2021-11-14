@@ -2,10 +2,8 @@ import connection from "../database.js";
 import { transactionStoreSchema } from "../validates/transaction.validate.js";
 
 async function storeTransaction(req, res) {
-  const { client_id, price, games_ids, date } = req.body;
-
+  const { price, games_ids, date } = req.body;
   const validate = transactionStoreSchema.validate({
-    client_id,
     price,
     games_ids,
     date,
@@ -18,7 +16,7 @@ async function storeTransaction(req, res) {
   try {
     const resu = await connection.query(
       `INSERT INTO transactions (date, total_price, client_id) VALUES($1, $2, $3) RETURNING id`,
-      [date, price, client_id]
+      [date, price, req.userId]
     );
 
     const id_transaction = resu.rows[0].id;
