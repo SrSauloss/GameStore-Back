@@ -11,7 +11,7 @@ async function createTransaction(category) {
   const transaction = {
     client_id: user.id,
     price: faker.datatype.float(),
-    games_ids: [id_game],
+    games_ids: [{ id: id_game, amount: faker.datatype.number() }],
     date: dayjs().format("YYYY-MM-DD"),
   };
 

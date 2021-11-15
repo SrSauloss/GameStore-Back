@@ -109,7 +109,6 @@ async function listProduct(req, res) {
 
 async function listProductsCategory(req, res) {
   const { id } = req.params;
-
   try {
     const { rows } = await connection.query(
       `

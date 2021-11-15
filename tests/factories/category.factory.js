@@ -24,4 +24,13 @@ async function insertCategory() {
 
   return category;
 }
-export { createCategoy, createToken, insertCategory };
+
+async function getIdCategory(category) {
+  const { rows } = await connection.query(
+    `SELECT id FROM categories WHERE name = $1`,
+    [category]
+  );
+
+  return rows[0].id;
+}
+export { createCategoy, createToken, insertCategory, getIdCategory };
