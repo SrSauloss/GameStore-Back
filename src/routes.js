@@ -7,6 +7,7 @@ import {
   listAllProducts,
   storeProduct,
   listProduct,
+  listProductsCategory,
 } from "./controllers/product.controller.js";
 import {
   listAllCategories,
@@ -28,5 +29,6 @@ routes.post("/product/new", auth, storeProduct);
 routes.get("/product/all", listAllProducts);
 routes.put("/product/:id", auth, updateStockProduct);
 routes.get("/product/:id", auth, listProduct);
+routes.get("/product/category/:id", auth, listProductsCategory);
 
 export default routes;

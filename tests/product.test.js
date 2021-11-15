@@ -5,7 +5,11 @@ import {
   createDataUpdate,
   createProduct,
 } from "./factories/product.factory.js";
-import { insertCategory, createToken } from "./factories/category.factory.js";
+import {
+  insertCategory,
+  createToken,
+  getIdCategory,
+} from "./factories/category.factory.js";
 import connection from "../src/database.js";
 
 afterAll(async () => {
@@ -142,6 +146,40 @@ describe("GET /product/:id", () => {
 
     const resul = await supertest(app)
       .get(`/product/${data.id}`)
+      .set("Authorization", `Bearer ${token}`);
+    expect(resul.status).toEqual(200);
+  });
+});
+
+describe("GET /product/category/:id", () => {
+  it("return 401 for user not authorized", async () => {
+    const category = await insertCategory();
+    const product = createProduct(category);
+    const token = createToken();
+    const id = getIdCategory(category);
+
+    await supertest(app)
+      .post("/product/new")
+      .send(product)
+      .set("Authorization", `Bearer ${token}`);
+
+    const resul = await supertest(app).get(`/product/category/${id}`);
+    expect(resul.status).toEqual(401);
+  });
+
+  it("return 200 for sucess", async () => {
+    const category = await insertCategory();
+    const product = createProduct(category);
+    const token = createToken();
+    const id = await getIdCategory(category);
+
+    await supertest(app)
+      .post("/product/new")
+      .send(product)
+      .set("Authorization", `Bearer ${token}`);
+
+    const resul = await supertest(app)
+      .get(`/product/category/${id}`)
       .set("Authorization", `Bearer ${token}`);
     expect(resul.status).toEqual(200);
   });

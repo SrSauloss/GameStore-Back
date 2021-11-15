@@ -4,7 +4,7 @@ import app from "../src/app.js";
 import connection from "../src/database.js";
 import { createTransaction } from "./factories/transaction.factory.js";
 import { createProduct } from "./factories/product.factory.js";
-import { createToken, insertCategory } from "./factories/category.factory.js";
+import { insertCategory } from "./factories/category.factory.js";
 import { createClient } from "./factories/client.factory.js";
 
 afterAll(async () => {

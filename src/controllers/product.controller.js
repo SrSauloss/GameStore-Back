@@ -107,4 +107,30 @@ async function listProduct(req, res) {
   }
 }
 
-export { storeProduct, listAllProducts, updateStockProduct, listProduct };
+async function listProductsCategory(req, res) {
+  const { id } = req.params;
+  try {
+    const { rows } = await connection.query(
+      `
+      SELECT * FROM games AS g
+      JOIN games_categories AS gc
+      ON gc.game_id = g.id
+      JOIN categories AS c
+      ON c.id = gc.category_id
+      WHERE c.id = $1
+      ;`,
+      [id]
+    );
+    res.send(rows);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+}
+
+export {
+  storeProduct,
+  listAllProducts,
+  updateStockProduct,
+  listProduct,
+  listProductsCategory,
+};
