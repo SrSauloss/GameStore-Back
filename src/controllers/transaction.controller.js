@@ -22,8 +22,12 @@ async function storeTransaction(req, res) {
     const id_transaction = resu.rows[0].id;
     games_ids.forEach(async (element) => {
       await connection.query(
+        `UPDATE games SET stock = stock - $1 WHERE id = $2`,
+        [element.amount, element.id]
+      );
+      await connection.query(
         `INSERT INTO transaction_games (game_id, transaction_id) VALUES($1, $2)`,
-        [element, id_transaction]
+        [element.id, id_transaction]
       );
     });
 
