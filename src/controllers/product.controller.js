@@ -112,7 +112,8 @@ async function listProductsCategory(req, res) {
   try {
     const { rows } = await connection.query(
       `
-      SELECT * FROM games AS g
+      SELECT g.id, g.name,g.price, g.description,g.stock,g.image
+      FROM games AS g
       JOIN games_categories AS gc
       ON gc.game_id = g.id
       JOIN categories AS c
